@@ -82,22 +82,16 @@ int CompareInputBigger(char A[], char B[])
     int state = 0;
     if (strlen(A) == strlen(B))
     {
-        for (int i = 0; i < strlen(A); i++)
-        {
-            if (A[i] != B[i])
-            {
-                state = A[i] > B[i] ? 1 : -1;
-                break;
-            }
-            else
-                continue;
-        }
+        if (strcmp(A, B) == 0)
+            state = 0;
+        else
+            state = strcmp(A, B) > 0 ? 1 : -1;
     }
     else
         state = strlen(A) > strlen(B) ? 1 : -1;
     return state;
 }
-void MakesubArray(char Input[], char subInput[])
+void MakeAbsArray(char Input[], char subInput[])
 {
     int i, count = 0;
     for (i = 0; i <= strlen(Input); i++)
@@ -133,8 +127,8 @@ void ExecuteBIOperate(char RInput[MAX_SIZE], char LInput[MAX_SIZE], char Operato
     char Result[2 * MAX_SIZE];
     int BiggerOne = 0;
     memset(Result, 0x00, sizeof(Result));
-    MakesubArray(RInput, subRInput); // 去掉-號
-    MakesubArray(LInput, subLInput);
+    MakeAbsArray(RInput, subRInput);
+    MakeAbsArray(LInput, subLInput);
     BiggerOne = CompareInputBigger(subRInput, subLInput);
     if (strncmp(Operator, "+", 1) == 0)
     {
